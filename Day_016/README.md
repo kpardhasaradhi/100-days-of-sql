@@ -16,6 +16,8 @@ Identify users who performed a Prime (P) event within that window.
 Compute the conversion ratio.
 
 🧾 SQL Solution
+
+
 with music_cte as (
   select 
     user_id,
