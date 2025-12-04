@@ -8,11 +8,13 @@ Column	Type	Description
 user_id	INT	Unique identifier for each user
 type	VARCHAR(10)	Type of event (Music, P, etc.)
 access_date	DATE	Date of the event
+
 🧩 Approach
 Extract all users who performed a Music event.
 Calculate a 30‑day window after each music event.
 Identify users who performed a Prime (P) event within that window.
 Compute the conversion ratio.
+
 🧾 SQL Solution
 with music_cte as (
   select 
