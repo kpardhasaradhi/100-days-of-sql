@@ -1,14 +1,14 @@
 🎬 Find Four or More Consecutive Empty Seats in a Theater (MySQL)
-🧩 Problem
+Problem
 We have a table named movie that stores seat details in a theater.
 Each record has columns like seat (for example, A1, A2, etc.) and occupancy (where 0 means empty and 1 means taken).
 We need to find all seats that are part of a group of four or more consecutive empty seats in the same row.
 
-🎯 Task
+Task
 The query should detect sequences of four consecutive seats where occupancy = 0.
 It should group these consecutive empty seats together and return all seats that belong to such sequences.
 
-🏁 Goal
+Goal
 Show the row, seat number, and occupancy for every seat that is part of a group of four or more empty seats next to each other in the same row.
 
 💡 Approach
@@ -52,22 +52,19 @@ cte3 AS (
   WHERE is_4_empty = 0 AND cnt = 4
 )
 SELECT 
-  c2.row_id,
-  c2.seat_id,
-  c2.occupancy
+  c2.*
 FROM cte2 c2
-JOIN cte3 c3 
+INNER JOIN cte3 c3 
   ON c2.row_id = c3.row_id 
-  AND c2.seat_id BETWEEN c3.seat_id AND c3.seat_id + 3
-ORDER BY c2.row_id, c2.seat_id;
+  AND c2.seat_id BETWEEN c3.seat_id AND c3.seat_id + 3;
 📊 Sample Output
-row_id	seat_id	occupancy
-A	3	0
-A	4	0
-A	5	0
-A	6	0
-📘 Key Learnings
-Used Common Table Expressions (CTEs) to simplify complex logic.
+row_id	seat_id	occupancy	is_4_empty	cnt
+a	3	0	0	4
+a	4	0	1	4
+a	5	0	1	4
+a	6	0	1	4
+🧩 Key Learnings
+Used Common Table Expressions (CTEs) to simplify multi-step logic.
 Applied window functions (MAX() and COUNT()) to detect consecutive seat patterns.
 Used JOIN and BETWEEN to expand filtered results to full seat groups.
-Practiced pattern detection using SQL windowing techniques.
+Practiced pattern detection and windowing techniques in SQL.
