@@ -39,6 +39,8 @@ JOIN cte_2
    AND cte_1.rno <= cte_2.next_rno - 1;
 
 
+```
+
 Explanation
 cte_1 assigns a unique row number to each record in the brands table.
 cte_2 finds the next non-null category row using the LEAD() function and stores its row number as next_rno.
@@ -55,4 +57,3 @@ Biscuits	britannia
 Biscuits	good day
 Biscuits	boost
 
-```
