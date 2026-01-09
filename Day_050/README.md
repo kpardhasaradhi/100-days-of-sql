@@ -8,11 +8,16 @@ You are given a table named `hall_events` that stores event schedules for multip
 
 Some events in the same hall may overlap or occur back-to-back. The task is to **merge all overlapping or consecutive events** for each hall and return the final list of merged date ranges.
 
+---
+
 ## Goal
 For each `hall_id`, combine all events that overlap or touch each other into a single continuous date range.  
 Return the hall ID, the earliest start date, and the latest end date for each merged block.
 
+---
+
 ## Example
+
 ### Input
 | hall_id | start_date | end_date   |
 |----------|-------------|------------|
@@ -28,11 +33,12 @@ Return the hall ID, the earliest start date, and the latest end date for each me
 | 2        | 2022-12-09  | 2022-12-23 |
 | 3        | 2022-12-01  | 2023-01-30 |
 
-## SQL Solution (MySQL 8.0+)
+---
 
+## SQL Solution (MySQL 8.0+)
 ```sql
 with recursive cte as (
-    select *, 
+    select *,
            row_number() over (order by hall_id, start_date) as event_id
     from hall_events
 ),
@@ -60,8 +66,12 @@ order by hall_id, start_date;
 ```
 
 Explanation
-The first CTE assigns a unique event_id to each event ordered by hall and start date.
-The recursive CTE (r_cte) walks through events one by one.
-If two events overlap or touch, they share the same flag.
-Otherwise, a new flag is assigned to start a new merged block.
-The final query groups by hall and flag to get the merged date ranges.
+The first CTE (cte) assigns a unique event_id to each event ordered by hall_id and start_date.
+The recursive CTE (r_cte) then walks through the events one by one.
+
+If two events belong to the same hall and their date ranges overlap or touch, they share the same flag.
+If they don’t overlap, a new flag is assigned to start a new merged block.
+
+Finally, the main query groups by hall_id and flag to get the merged date ranges for each hall.
+The result shows one continuous time period per hall after merging all overlapping or consecutive events.
+
