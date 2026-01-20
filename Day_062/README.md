@@ -18,7 +18,8 @@ Apply DISTINCT to remove duplicate recommendations.
 Sort the results by user_id and page_id for clarity.
 
 💻 Query
-```SELECT DISTINCT 
+```
+SELECT DISTINCT 
     f.user_id, 
     l.page_id
 FROM 
