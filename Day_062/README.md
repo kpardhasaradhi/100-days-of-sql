@@ -18,7 +18,7 @@ Apply DISTINCT to remove duplicate recommendations.
 Sort the results by user_id and page_id for clarity.
 
 💻 Query
-```
+```sql
 SELECT DISTINCT 
     f.user_id, 
     l.page_id
@@ -68,6 +68,7 @@ user_id	page_id
 3	C
 4	B
 4	C
+
 🧾 Explanation
 The join connects each user with the pages liked by their friends.
 The subquery filters out pages already liked by the user.
